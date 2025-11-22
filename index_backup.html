@@ -63,6 +63,25 @@
             display: block !important;
         }
         
+        /* Responsive Typography */
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 1.75rem !important;
+            }
+            h2 {
+                font-size: 1.5rem !important;
+            }
+            h4 {
+                font-size: 1.25rem !important;
+            }
+            h5 {
+                font-size: 1rem !important;
+            }
+            p {
+                font-size: 0.9rem !important;
+            }
+        }
+        
         /* Fix mobile menu positioning */
         @media (max-width: 767px) {
             .broad-nav {
@@ -91,6 +110,121 @@
                 display: block !important;
                 padding: 10px !important;
             }
+            
+            /* Mobile Banner */
+            .banner-image {
+                margin-top: 30px;
+            }
+            
+            /* Mobile Sections Padding */
+            .section {
+                padding: 60px 0 !important;
+            }
+            
+            /* Mobile Feature Boxes */
+            .feature-item {
+                margin-bottom: 30px;
+            }
+            
+            /* Mobile Counters */
+            .parallax-box {
+                margin-bottom: 20px;
+            }
+            
+            /* Mobile Portfolio */
+            .portfolio-content h5 {
+                font-size: 0.9rem !important;
+            }
+            
+            /* Mobile Contact Form */
+            .contact-form input,
+            .contact-form textarea {
+                font-size: 14px !important;
+            }
+            
+            .contact-details ul li {
+                font-size: 14px !important;
+                margin-bottom: 15px;
+            }
+            
+            /* Mobile Navigation Arrows */
+            .circle {
+                width: 35px !important;
+                height: 35px !important;
+            }
+        }
+        
+        /* Tablet Responsiveness */
+        @media (min-width: 768px) and (max-width: 991px) {
+            h1 {
+                font-size: 2rem !important;
+            }
+            h2 {
+                font-size: 1.75rem !important;
+            }
+            
+            .section {
+                padding: 80px 0 !important;
+            }
+            
+            .feature-item {
+                margin-bottom: 25px;
+            }
+        }
+        
+        /* Small Mobile Devices */
+        @media (max-width: 375px) {
+            h1 {
+                font-size: 1.5rem !important;
+            }
+            h2 {
+                font-size: 1.3rem !important;
+            }
+            
+            .btn {
+                font-size: 13px !important;
+                padding: 10px 20px !important;
+            }
+            
+            .side_nav {
+                width: 80px !important;
+            }
+            
+            .main_container {
+                margin-left: 80px !important;
+            }
+        }
+        
+        /* Landscape Mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .section {
+                min-height: auto !important;
+                padding: 40px 0 !important;
+            }
+        }
+        
+        /* Fix Overflow Issues */
+        body {
+            overflow-x: hidden !important;
+        }
+        
+        .container, .container-fluid, .expand-container {
+            max-width: 100% !important;
+            overflow-x: hidden !important;
+        }
+        
+        img {
+            max-width: 100% !important;
+            height: auto !important;
+        }
+        
+        /* Ensure Portfolio doesn't overflow */
+        .owl-carousel {
+            overflow: hidden !important;
+        }
+        
+        .portfolio-bg {
+            overflow: hidden !important;
         }
     </style>
 </head>
@@ -348,8 +482,8 @@ Our mission is to enhance everyday living by creating environments that are more
 <!-- START PORTFOLIO -->
     <section class="section slide4 portfolio-bg" id="portfolio">
         <div class="bg-overlay text-light-black opacity-8"></div>
-        <div class="container">
-            <div class="row align-items-center section-heading">
+        <div class="container expand-container">
+            <div class="row align-items-center section-heading mb-5">
                 <div class="col-12 col-md-6 main-heading section4left wow" data-wow-delay=".8s">
                     <h2 class="main-font">Homes/Offices <span class="d-block">Successfully Setup</span></h2>
                 </div>
@@ -380,8 +514,8 @@ Our mission is to enhance everyday living by creating environments that are more
                 </div>
             </div>
             <!-- Portfolio -->
-            <div class="row portfolio-fade wow" data-wow-delay=".8s">
-                <div class="col-sm-12">
+            <div class="row portfolio-fade wow mb-5 pb-5" data-wow-delay=".8s">
+                <div class="col-sm-12" style="margin-bottom: 80px;">
                     <div class="team-classic owl-team owl-carousel text-center">
                         <!-- Item 1 -->
                         <div class="item">

@@ -191,38 +191,6 @@ $(window).on("load", function () {
                 }
 
                 if(nextIndex == 5) {
-                    $('.section5left').addClass('slideInLeft');
-                    setTimeout(function(){
-                        $('.section5left').removeClass('slideInLeft');
-                    }, 1800);
-
-                    $('.section5right').addClass('slideInRight');
-                    setTimeout(function(){
-                        $('.section5right').removeClass('slideInRight');
-                    }, 1800);
-
-                    $('.section5right').addClass('slideInRight');
-                    setTimeout(function(){
-                        $('.section5right').removeClass('slideInRight');
-                    }, 1800);
-
-                    $('.blog-left').addClass('slideInLeft');
-                    setTimeout(function(){
-                        $('.blog-left').removeClass('slideInLeft');
-                    }, 1500);
-
-                    $('.blog-right').addClass('slideInRight');
-                    setTimeout(function(){
-                        $('.blog-right').removeClass('slideInRight');
-                    }, 1500);
-
-                    $('.blog-center').addClass('fadeIn');
-                    setTimeout(function(){
-                        $('.blog-center').removeClass('fadeIn');
-                    }, 1500);
-                }
-
-                if(nextIndex == 6) {
                     $('.section6left').addClass('slideInLeft');
                     setTimeout(function(){
                         $('.section6left').removeClass('slideInLeft');
@@ -288,33 +256,35 @@ jQuery(function ($) {
 /* ===================================
      Side Menu Open & Close
 ====================================== */
-function  my_click() {
+function my_click() {
+    try {
+        $(document).off('click', '#my_tog #close_nav');
+        
+        $(document).on('click', '#my_tog', function(e) {
+            e.preventDefault();
+            $(".side_nav").addClass("expand_nav");
+            $(this).addClass("close_nav active").attr("id", "close_nav");
+            $(".overlay-body").addClass("show_body_overlay");
+            $('#pp-nav').hide();
+        });
 
-    $('#my_tog').on("click", function () {
-        $(".side_nav").addClass("expand_nav");
-        $("#my_tog").addClass("close_nav");
-        $("#my_tog").attr("id","close_nav");
-
-        $(".overlay-body").addClass("show_body_overlay");
-        $('#pp-nav').hide();
-    });
-
-    $('#close_nav').on("click", function () {
-        $("#close_nav").removeClass("close_nav");
-        $(".side_nav").removeClass("expand_nav");
-        $("#my_tog").removeClass("close_nav");
-        $("#close_nav").attr("id","my_tog");
-
-        $(".overlay-body").removeClass("show_body_overlay");
-        $('#pp-nav').show();
-    });
+        $(document).on('click', '#close_nav', function(e) {
+            e.preventDefault();
+            $(this).removeClass("close_nav active").attr("id", "my_tog");
+            $(".side_nav").removeClass("expand_nav");
+            $(".overlay-body").removeClass("show_body_overlay");
+            $('#pp-nav').show();
+        });
+    } catch (error) {
+        console.error('Error in hamburger menu:', error);
+    }
 }
 
 $('.side-nav-menu .nav-menu li a').on("click", function () {
     $(".side_nav").removeClass("expand_nav");
-    $("#close_nav").removeClass("close_nav");
+    $("#close_nav").removeClass("close_nav active");
     $(".side_nav").removeClass("expand_nav");
-    $("#my_tog").removeClass("close_nav");
+    $("#my_tog").removeClass("close_nav active");
     $("#close_nav").attr("id","my_tog");
     $('#pp-nav').show();
     $('.side-nav-menu .nav-menu .nav-item .nav-link').removeClass('active');
@@ -502,6 +472,7 @@ $(".team-classic.owl-team").owlCarousel({
     nav: false,
     loop:true,
     autoplay: true,
+    autoplayTimeout: 1500,
     smartSpeed:500,
     navSpeed: true,
     autoplayHoverPause:true,

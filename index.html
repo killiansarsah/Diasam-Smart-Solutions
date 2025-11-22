@@ -24,6 +24,422 @@
     <link href="agency-hotspot/css/line-awesome.min.css" rel="stylesheet">
     <link href="agency-hotspot/css/jquery.pagepiling.css" rel="stylesheet">
     <link href="agency-hotspot/css/style.css" rel="stylesheet">
+    <style>
+        /* Portfolio Image Size Control */
+        .portfolio-bg .single-work {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 400px;
+            height: 400px;
+            margin: 0 auto;
+        }
+        
+        .portfolio-bg .single-work img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        
+        .portfolio-bg .team-data-img {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Hide overlay text on portfolio images */
+        .portfolio-bg .overlay-text,
+        .portfolio-bg .cases-image-inner,
+        .portfolio-bg .image-overlay {
+            display: none !important;
+        }
+        
+        /* Product Card Styling */
+        .portfolio-grid {
+            margin-top: 20px;
+        }
+        
+        .product-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 0;
+            text-align: center;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 250px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-image {
+            width: 100%;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            padding: 10px;
+            min-height: 200px;
+            max-height: 200px;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .product-info {
+            padding: 8px 12px;
+            background: #ffffff;
+        }
+        
+        .product-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333333;
+            margin-bottom: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .product-desc {
+            font-size: 12px;
+            color: #666666;
+            margin-bottom: 0;
+        }
+        
+        .btn-white {
+            background-color: #ffffff;
+            color: #333333;
+            padding: 10px 35px;
+            border: 2px solid #ffffff;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-white:hover {
+            background-color: transparent;
+            color: #ffffff;
+            border-color: #ffffff;
+        }
+        
+        /* Social Icons Positioning */
+        .side-nav-menu .social-icons {
+            margin-top: 90px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .side-nav-menu .social-icons span {
+            margin: 0 !important;
+        }
+        
+        .side-nav-menu .social-icons span:last-child {
+            margin-right: 0 !important;
+        }
+        
+        .side-nav-menu .rites-res {
+            margin-top: 0px;
+        }
+        
+        /* Glassmorphism Contact Buttons */
+        .btn-glass-contact {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            padding: 14px 32px;
+            font-weight: 600;
+            font-size: 15px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-glass-contact:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+            color: #ffffff;
+        }
+        
+        .btn-glass-contact i {
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        
+        .contact-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        
+        /* Mobile Menu Spacing */
+        @media (max-width: 767px) {
+            .broad .side-nav-menu .nav-menu {
+                padding-top: 80px;
+            }
+            
+            .broad .side-nav-menu .nav-item {
+                margin-bottom: 25px;
+            }
+            
+            .broad .side-nav-menu .nav-link {
+                font-size: 18px;
+                padding: 10px 0;
+            }
+            
+            .contact-buttons {
+                align-items: center;
+            }
+            
+            .btn-glass-contact {
+                width: 100%;
+                text-align: center;
+            }
+        }
+        
+        /* Shuffle Animation - Slide and Fade */
+        @keyframes slideOut {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-50px) scale(0.8);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes slideIn {
+            0% {
+                transform: translateY(50px) scale(0.8);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .product-card.slide-out {
+            animation: slideOut 0.35s ease-in forwards;
+        }
+        
+        .product-card.slide-in {
+            animation: slideIn 0.35s ease-out forwards;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 767px) {
+            .portfolio-bg .single-work {
+                max-width: 100%;
+                height: 300px;
+            }
+            
+            .product-card {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+            
+            .product-image img {
+                max-width: 200px;
+            }
+            
+            .product-title {
+                font-size: 18px;
+            }
+            
+            /* Mobile Carousel */
+            .portfolio-grid .col-lg-4 {
+                display: none;
+            }
+            
+            .portfolio-grid .col-lg-4.active-mobile {
+                display: block;
+            }
+            
+            .portfolio-grid {
+                position: relative;
+            }
+            
+            .mobile-carousel-indicators {
+                display: flex;
+                justify-content: center;
+                gap: 8px;
+                margin-top: 15px;
+            }
+            
+            .mobile-carousel-indicators .dot {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.4);
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            
+            .mobile-carousel-indicators .dot.active {
+                background: #ffffff;
+                width: 12px;
+                height: 12px;
+            }
+        }
+        
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .portfolio-bg .single-work {
+                max-width: 400px;
+                height: 400px;
+            }
+            
+            .product-image img {
+                max-width: 220px;
+            }
+        }
+    </style>
+    <script>
+        // Portfolio Image Shuffle Script
+        document.addEventListener('DOMContentLoaded', function() {
+            const portfolioImages = [
+                { src: 'agency-hotspot/images/CCTV SYSTEM.png', alt: 'Smart Camera', title: 'Smart Camera' },
+                { src: 'agency-hotspot/images/Smart Lock.png', alt: 'Smart Lock', title: 'Smart Lock' },
+                { src: 'agency-hotspot/images/Video-Doorbell.jpg', alt: 'Video Doorbell', title: 'Video Doorbell' },
+                { src: 'agency-hotspot/images/Alexa.png', alt: 'Voice Assistant', title: 'Voice Assistant' },
+                { src: 'agency-hotspot/images/smart light.jpg', alt: 'Smart Lights', title: 'Smart Lights' },
+                { src: 'agency-hotspot/images/smart light.jpg', alt: 'Smart Plug', title: 'Smart Plug' }
+            ];
+            
+            let currentMobileIndex = 0;
+            let isMobile = window.innerWidth < 768;
+            
+            // Check if mobile view
+            function checkMobile() {
+                isMobile = window.innerWidth < 768;
+            }
+            
+            // Mobile carousel functionality
+            function updateMobileCarousel() {
+                if (!isMobile) return;
+                
+                const productCards = document.querySelectorAll('.portfolio-grid .col-lg-4');
+                const dots = document.querySelectorAll('.mobile-carousel-indicators .dot');
+                
+                // Remove active class from all cards and dots
+                productCards.forEach(card => card.classList.remove('active-mobile'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                // Add active class to current card and dot
+                if (productCards[currentMobileIndex]) {
+                    productCards[currentMobileIndex].classList.add('active-mobile');
+                }
+                if (dots[currentMobileIndex]) {
+                    dots[currentMobileIndex].classList.add('active');
+                }
+                
+                // Move to next card
+                currentMobileIndex = (currentMobileIndex + 1) % productCards.length;
+            }
+            
+            // Desktop shuffle functionality
+            function shuffleArray(array) {
+                const newArray = [...array];
+                for (let i = newArray.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+                }
+                return newArray;
+            }
+            
+            function updatePortfolioImages() {
+                if (isMobile) return; // Don't shuffle on mobile
+                
+                const shuffled = shuffleArray(portfolioImages);
+                const productCards = document.querySelectorAll('.portfolio-grid .product-card');
+                
+                // Add slide-out animation
+                productCards.forEach(card => {
+                    card.classList.add('slide-out');
+                });
+                
+                // Wait for slide-out animation to complete, then update content and slide-in
+                setTimeout(() => {
+                    productCards.forEach((card, index) => {
+                        if (shuffled[index]) {
+                            const img = card.querySelector('.product-image img');
+                            const title = card.querySelector('.product-title');
+                            
+                            if (img && title) {
+                                img.src = shuffled[index].src;
+                                img.alt = shuffled[index].alt;
+                                title.textContent = shuffled[index].title;
+                            }
+                        }
+                        
+                        // Remove slide-out and add slide-in
+                        card.classList.remove('slide-out');
+                        card.classList.add('slide-in');
+                    });
+                    
+                    // Remove slide-in class after animation completes
+                    setTimeout(() => {
+                        productCards.forEach(card => {
+                            card.classList.remove('slide-in');
+                        });
+                    }, 350);
+                }, 350);
+            }
+            
+            // Initialize mobile carousel
+            if (isMobile) {
+                updateMobileCarousel();
+            }
+            
+            // Mobile carousel auto-advance every 3 seconds
+            setInterval(() => {
+                if (isMobile) {
+                    updateMobileCarousel();
+                }
+            }, 3000);
+            
+            // Desktop shuffle every 5 seconds
+            setInterval(() => {
+                if (!isMobile) {
+                    updatePortfolioImages();
+                }
+            }, 5000);
+            
+            // Handle window resize
+            window.addEventListener('resize', checkMobile);
+            
+            // Dot click handlers
+            const dots = document.querySelectorAll('.mobile-carousel-indicators .dot');
+            dots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    if (isMobile) {
+                        currentMobileIndex = parseInt(this.getAttribute('data-index'));
+                        updateMobileCarousel();
+                    }
+                });
+            });
+        });
+    </script>
 </head>
 
 <body data-spy="scroll" data-target=".navbar" data-offset="90">
@@ -74,13 +490,11 @@
                             <li class="nav-item">
                                 <a data-menuanchor="contact" class="nav-link link line" href="#contact">Contact</a></li>
                         </ul>
-                        <div class="slider-social side-icons">
-                            <ul class="list-unstyled">
-                                <li class="animated-wrap"><a class="animated-element" href="javascript:void(0);"><i class="fab fa-facebook-f"></i></a></li>
-                                <li class="animated-wrap"><a class="animated-element" href="javascript:void(0);"><i class="fab fa-x-twitter"></i></a></li>
-                                <li class="animated-wrap"><a class="animated-element" href="javascript:void(0);"><i class="fab fa-linkedin-in"></i></a></li>
-                                <li class="animated-wrap"><a class="animated-element" href="javascript:void(0);"><i class="fab fa-instagram"></i></a></li>
-                            </ul>
+                        <div class="social-icons">
+                            <span><a href="javascript:void(0);"><i class="fab fa-facebook-f"></i></a></span>
+                            <span><a href="javascript:void(0);"><i class="fab fa-x-twitter"></i></a></span>
+                            <span><a href="javascript:void(0);"><i class="fab fa-linkedin-in"></i></a></span>
+                            <span><a href="javascript:void(0);"><i class="fab fa-instagram"></i></a></span>
                         </div>
                         <p class="rites-res link"><span style="color: #000000; font-size:12px ">&copy;<script>document.write(new Date().getFullYear())</script> Diasam. All rights reserved.</span></p>
                     </nav>
@@ -119,17 +533,14 @@
                             <a class="nav-link" href="#portfolio">Our Works</a>
                         </li>
                         <li class="nav-item">
-
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="#contact">Contact</a>
                         </li>
                     </ul>
                     <div class="social-icons">
-                        <span class="animated-wrap"><a class="animated-element" href="javascript:void(0);"><i class="fab fa-facebook-f"></i></a></span>
-                        <span class="animated-wrap"><a class="animated-element" href="javascript:void(0);"><i class="fab fa-x-twitter"></i></a></span>
-                        <span class="animated-wrap"><a class="animated-element" href="javascript:void(0);"><i class="fab fa-linkedin-in"></i></a></span>
-                        <span class="animated-wrap"><a class="animated-element" href="javascript:void(0);"><i class="fab fa-instagram"></i></a></span>
+                        <span><a href="javascript:void(0);"><i class="fab fa-facebook-f"></i></a></span>
+                        <span><a href="javascript:void(0);"><i class="fab fa-x-twitter"></i></a></span>
+                        <span><a href="javascript:void(0);"><i class="fab fa-linkedin-in"></i></a></span>
+                        <span><a href="javascript:void(0);"><i class="fab fa-instagram"></i></a></span>
                     </div>
                     <p class="rites-res"><span>&copy;  <script>document.write(new Date().getFullYear())</script> Diasam. All rights reserved.</span></p>
                 </nav>
@@ -147,7 +558,7 @@
             <video autoplay muted loop playsinline>
                 <source src="agency-hotspot/images/Hue-Secure-Functional-Video-16x9-low-res-HQ1.mp4" type="video/mp4">
             </video>
-            <div class="bg-overlay bg-blue opacity-8"></div>
+            <div class="bg-overlay bg-blue opacity-6"></div>
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-12 col-md-6 section1left wow" data-wow-delay=".8s">
@@ -278,100 +689,60 @@
                         <div class="team-box item">
                             <!--Team Image-->
                             <div class="team-image">
-                                <img src="agency-hotspot/images/team-img1.jpg" alt="image">
+                                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=370&h=370&fit=crop" alt="Chris Ronaldo">
                             </div>
                             <!--Team Text-->
                             <div class="team-text">
                                 <h5 class="main-font">Chris Ronaldo</h5>
                                 <span class="alt-font">Owner / Co-founder</span>
-                                <div class="team-social">
-                                    <ul class="list-unstyled">
-                                        <li><a class="facebook-bg-hvr" href="javascript:void(0);"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
-                                        <li><a class="twitter-bg-hvr" href="javascript:void(0);"><i class="fab fa-x-twitter" aria-hidden="true"></i></a></li>
-                                        <li><a class="google-bg-hvr" href="javascript:void(0);"><i class="fab fa-google-plus-g" aria-hidden="true"></i></a></li>
-                                        <li><a class="linkedin-bg-hvr" href="javascript:void(0);"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a></li>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                         <!--Team Item-->
                         <div class="team-box item">
                             <!--Team Image-->
                             <div class="team-image">
-                                <img src="agency-hotspot/images/team-img2.jpg" alt="image">
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=370&h=370&fit=crop" alt="Chris Jerico">
                             </div>
                             <!--Team Text-->
                             <div class="team-text">
                                 <h5 class="main-font">Chris Jerico</h5>
                                 <span class="alt-font">Content Writer</span>
-                                <div class="team-social">
-                                    <ul class="list-unstyled">
-                                        <li><a class="facebook-bg-hvr" href="javascript:void(0);"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
-                                        <li><a class="twitter-bg-hvr" href="javascript:void(0);"><i class="fab fa-x-twitter" aria-hidden="true"></i></a></li>
-                                        <li><a class="google-bg-hvr" href="javascript:void(0);"><i class="fab fa-google-plus-g" aria-hidden="true"></i></a></li>
-                                        <li><a class="linkedin-bg-hvr" href="javascript:void(0);"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a></li>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                         <!--Team Item-->
                         <div class="team-box item">
                             <!--Team Image-->
                             <div class="team-image">
-                                <img src="agency-hotspot/images/team-img3.jpg" alt="image">
+                                <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=370&h=370&fit=crop" alt="James Clark">
                             </div>
                             <!--Team Text-->
                             <div class="team-text">
                                 <h5 class="main-font">James Clark</h5>
                                 <span class="alt-font">Marketing Head</span>
-                                <div class="team-social">
-                                    <ul class="list-unstyled">
-                                        <li><a class="facebook-bg-hvr" href="javascript:void(0);"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
-                                        <li><a class="twitter-bg-hvr" href="javascript:void(0);"><i class="fab fa-x-twitter" aria-hidden="true"></i></a></li>
-                                        <li><a class="google-bg-hvr" href="javascript:void(0);"><i class="fab fa-google-plus-g" aria-hidden="true"></i></a></li>
-                                        <li><a class="linkedin-bg-hvr" href="javascript:void(0);"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a></li>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                         <!--Team Item-->
                         <div class="team-box item">
                             <!--Team Image-->
                             <div class="team-image">
-                                <img src="agency-hotspot/images/team-img-4.jpg" alt="image">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=370&h=370&fit=crop" alt="William Smith">
                             </div>
                             <!--Team Text-->
                             <div class="team-text">
                                 <h5 class="main-font">William Smith</h5>
                                 <span class="alt-font">HR Manager</span>
-                                <div class="team-social">
-                                    <ul class="list-unstyled">
-                                        <li><a class="facebook-bg-hvr" href="javascript:void(0);"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
-                                        <li><a class="twitter-bg-hvr" href="javascript:void(0);"><i class="fab fa-x-twitter" aria-hidden="true"></i></a></li>
-                                        <li><a class="google-bg-hvr" href="javascript:void(0);"><i class="fab fa-google-plus-g" aria-hidden="true"></i></a></li>
-                                        <li><a class="linkedin-bg-hvr" href="javascript:void(0);"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a></li>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                         <!--Team Item-->
                         <div class="team-box item">
                             <!--Team Image-->
                             <div class="team-image">
-                                <img src="agency-hotspot/images/team-img-5.jpg" alt="image">
+                                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=370&h=370&fit=crop" alt="Ella Anderson">
                             </div>
                             <!--Team Text-->
                             <div class="team-text">
                                 <h5 class="main-font">Ella Anderson</h5>
                                 <span class="alt-font">Sales Executive</span>
-                                <div class="team-social">
-                                    <ul class="list-unstyled">
-                                        <li><a class="facebook-bg-hvr" href="javascript:void(0);"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
-                                        <li><a class="twitter-bg-hvr" href="javascript:void(0);"><i class="fab fa-x-twitter" aria-hidden="true"></i></a></li>
-                                        <li><a class="google-bg-hvr" href="javascript:void(0);"><i class="fab fa-google-plus-g" aria-hidden="true"></i></a></li>
-                                        <li><a class="linkedin-bg-hvr" href="javascript:void(0);"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a></li>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -385,149 +756,105 @@
     <section class="section slide4 portfolio-bg" id="portfolio">
         <div class="bg-overlay text-light-black opacity-8"></div>
         <div class="container">
-            <div class="row align-items-center section-heading">
-                <div class="col-12 col-md-6 main-heading section4left wow" data-wow-delay=".8s">
-                    <h2 class="main-font">Homes/Offices <span class="d-block">Successfully Setup</span></h2>
+            <div class="row section-heading mb-3 text-center">
+                <div class="col-12">
+                    <h2 class="main-font text-white mb-1" style="font-size: 2rem; font-weight: 600;">COLLECTION</h2>
+                    <p class="text-white" style="font-size: 1rem; margin-bottom: 0;">Smart Home Devices</p>
                 </div>
-                <div class="col-12 col-md-6 section4right wow" data-wow-delay=".8s">
-                    <div class="row my-4 my-md-0">
-                        <!-- Counter -->
-                        <div class="col-12 col-md-4">
-                            <div class="parallax-box text-white">
-                                <h2 class="portfolio-counter">456</h2>
-                                <h5>Happy Clients</h5>
-                            </div>
+            </div>
+            
+            <!-- Portfolio Grid -->
+            <div class="row portfolio-grid wow" data-wow-delay=".5s">
+                <!-- Portfolio Item 1 -->
+                <div class="col-lg-4 col-md-6 mb-2">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="agency-hotspot/images/CCTV SYSTEM.png" alt="Smart Camera">
                         </div>
-                        <!-- Counter -->
-                        <div class="col-12 col-md-4">
-                            <div class="parallax-box text-white">
-                                <h2 class="portfolio-counter">599</h2>
-                                <h5>Finished Projects</h5>
-                            </div>
+                        <div class="product-info">
+                            <h5 class="product-title">Smart Camera</h5>
                         </div>
-                        <!-- Counter -->
-                        <div class="col-12 col-md-4">
-                            <div class="parallax-box text-white">
-                                <h2 class="portfolio-counter">780</h2>
-                                <h5>Hours Worked</h5>
-                            </div>
+                    </div>
+                </div>
+                        
+                <!-- Portfolio Item 2 -->
+                <div class="col-lg-4 col-md-6 mb-2">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="agency-hotspot/images/Smart Lock.png" alt="Smart Lock">
+                        </div>
+                        <div class="product-info">
+                            <h5 class="product-title">Smart Lock</h5>
+                        </div>
+                    </div>
+                </div>
+                        
+                <!-- Portfolio Item 3 -->
+                <div class="col-lg-4 col-md-6 mb-2">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="agency-hotspot/images/Video-Doorbell.jpg" alt="Video Doorbell">
+                        </div>
+                        <div class="product-info">
+                            <h5 class="product-title">Video Doorbell</h5>
+                        </div>
+                    </div>
+                </div>
+                        
+                <!-- Portfolio Item 4 -->
+                <div class="col-lg-4 col-md-6 mb-2">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="agency-hotspot/images/Alexa.png" alt="Voice Assistant">
+                        </div>
+                        <div class="product-info">
+                            <h5 class="product-title">Voice Assistant</h5>
+                        </div>
+                    </div>
+                </div>
+                        
+                <!-- Portfolio Item 5 -->
+                <div class="col-lg-4 col-md-6 mb-2">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="agency-hotspot/images/smart light.jpg" alt="Smart Lights">
+                        </div>
+                        <div class="product-info">
+                            <h5 class="product-title">Smart Lights</h5>
+                        </div>
+                    </div>
+                </div>
+                        
+                <!-- Portfolio Item 6 -->
+                <div class="col-lg-4 col-md-6 mb-2">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="agency-hotspot/images/smart light.jpg" alt="Smart Plug">
+                        </div>
+                        <div class="product-info">
+                            <h5 class="product-title">Smart Plug</h5>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Portfolio -->
-            <div class="row portfolio-fade wow" data-wow-delay=".8s">
-                <div class="col-sm-12">
-                    <div class="team-classic owl-team owl-carousel text-center">
-                        <!-- Item 1 -->
-                        <div class="item">
-                            <div class="team-data-img">
-                                <a href="agency-hotspot/images/portfolio-img-5.jpg" data-fancybox="portfolio-images">
-                                    <div class="single-work">
-                                        <img src="agency-hotspot/images/portfolio-img-1.jpg" alt="team" class="img-responsive" data-no-retina>
-                                        <div class="overlay-text center-block">
-                                            <div class="cases-image-inner">
-                                                <span class="cases-line top"></span>
-                                                <span class="cases-line top-right"></span>
-                                                <span class="cases-line bottom"></span>
-                                                <span class="cases-line bottom-left"></span>
-                                                <div class="image-overlay">
-                                                    <div class="search-icon"><i class="fa fa-search"></i></div>
-                                                    <h6 class="text-white text-uppercase alt-font">View Project</h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <div class="portfolio-content">
-                                    <h5 class="text-yellow main-font mb-2 text-uppercase">Outdoor CCTV Setup</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Item 2 -->
-                        <div class="item">
-                            <div class="team-data-img">
-                                <a href="agency-hotspot/images/Hue-Secure-Functional-Video-16x9-low-res-HQ1.mp4" data-fancybox="portfolio-images">
-                                    <div class="single-work">
-                                        <img src="agency-hotspot/images/3371.jpg" alt="team" class="img-responsive" data-no-retina>
-                                        <div class="overlay-text center-block">
-                                            <div class="cases-image-inner">
-                                                <span class="cases-line top"></span>
-                                                <span class="cases-line top-right"></span>
-                                                <span class="cases-line bottom"></span>
-                                                <span class="cases-line bottom-left"></span>
-                                                <div class="image-overlay">
-                                                    <div class="search-icon"><i class="fa fa-play"></i></div>
-                                                    <h6 class="text-white text-uppercase alt-font">Launch Video</h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <div class="portfolio-content">
-                                    <h5 class="text-yellow main-font mb-2 text-uppercase">Smart Home Assistant (Alexa)</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Item 3 -->
-                        <div class="item">
-                            <div class="team-data-img">
-                                <a href="agency-hotspot/images/smart light.jpg" data-fancybox="portfolio-images">
-                                    <div class="single-work">
-                                        <img src="agency-hotspot/images/smart light.jpg" alt="team" class="img-responsive" data-no-retina>
-                                        <div class="overlay-text center-block">
-                                            <div class="cases-image-inner">
-                                                <span class="cases-line top"></span>
-                                                <span class="cases-line top-right"></span>
-                                                <span class="cases-line bottom"></span>
-                                                <span class="cases-line bottom-left"></span>
-                                                <div class="image-overlay">
-                                                    <div class="search-icon"><i class="fa fa-plus"></i></div>
-                                                    <h6 class="text-white text-uppercase alt-font">Show Image</h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <div class="portfolio-content">
-                                    <h5 class="text-yellow main-font mb-2 text-uppercase">Smart Lights</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Item 4 -->
-                        <div class="item">
-                            <div class="team-data-img">
-                                <a href="agency-hotspot/images/Video-Doorbell.jpg" data-fancybox="portfolio-images">
-                                    <div class="single-work">
-                                        <img src="agency-hotspot/images/Video-Doorbell.jpg" alt="team" class="img-responsive" data-no-retina>
-                                        <div class="overlay-text center-block">
-                                            <div class="cases-image-inner">
-                                                <span class="cases-line top"></span>
-                                                <span class="cases-line top-right"></span>
-                                                <span class="cases-line bottom"></span>
-                                                <span class="cases-line bottom-left"></span>
-                                                <div class="image-overlay">
-                                                    <div class="search-icon"><i class="fa fa-search"></i></div>
-                                                    <h6 class="text-white text-uppercase alt-font">View Latest Work</h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <div class="portfolio-content">
-                                    <h5 class="text-yellow main-font mb-2 text-uppercase">Video Doorbells</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <a class="circle ini-customPrevBtn" id="team-circle-left">
-                        <i class="lni-chevron-left"></i>
-                    </a>
-                    <a class="circle ini-customNextBtn" id="team-circle-right">
-                        <i class="lni-chevron-right"></i>
-                    </a>
+            
+            <!-- Mobile Carousel Indicators -->
+            <div class="mobile-carousel-indicators d-md-none">
+                <span class="dot active" data-index="0"></span>
+                <span class="dot" data-index="1"></span>
+                <span class="dot" data-index="2"></span>
+                <span class="dot" data-index="3"></span>
+                <span class="dot" data-index="4"></span>
+                <span class="dot" data-index="5"></span>
+            </div>
+            
+            <!-- View All Button (Mobile Only) -->
+            <div class="row mt-2 d-md-none">
+                <div class="col-12 text-center">
+                    <a href="#contact" class="btn btn-medium btn-rounded btn-white">View All Products</a>
                 </div>
             </div>
+
         </div>
     </section>
 <!-- END PORTFOLIO -->
@@ -558,13 +885,19 @@
                     <div class="contact-details wow fadeInRight">
                         <h4 class="heading main-font">Office Location</h4>
                         <p class="text alt-font">We are closer than you think, contact us at your convenience with any questions or enquiries. We look forward to serving you!</p>
-                        <ul>
-                            <li><i aria-hidden="true" class="fas fa-map-marker-alt"></i> 123 Park Avenue, New York, United States </li>
-                            <li><i aria-hidden="true" class="fas fa-phone-volume"></i>
-                                <span>210 – 971 – 4545</span>
-                            </li>
-                            <li><i aria-hidden="true" class="fas fa-paper-plane"></i>diasamss@outlook.com</li>
-                        </ul>
+                        
+                        <!-- Contact Action Buttons -->
+                        <div class="contact-buttons mt-4">
+                            <a href="https://www.google.com/maps/search/?api=1&query=123+Park+Avenue,+New+York,+United+States" target="_blank" class="btn btn-glass-contact mb-3">
+                                <i class="fas fa-map-marker-alt"></i> View Location
+                            </a>
+                            <a href="tel:+12109714545" class="btn btn-glass-contact mb-3">
+                                <i class="fas fa-phone"></i> Call Us
+                            </a>
+                            <a href="mailto:diasamss@outlook.com" class="btn btn-glass-contact mb-3">
+                                <i class="fas fa-envelope"></i> Email Us
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -575,14 +908,6 @@
 
 <!-- Start Copyright -->
 <div class="slider-bottom cursor-light">
-    <div class="slider-social side-icons cursor-light">
-        <ul class="list-unstyled">
-            <li class="animated-wrap"><a class="animated-element" href="javascript:void(0);"><i class="fab fa-facebook-f"></i></a></li>
-            <li class="animated-wrap"><a class="animated-element" href="javascript:void(0);"><i class="fab fa-x-twitter"></i></a></li>
-            <li class="animated-wrap"><a class="animated-element" href="javascript:void(0);"><i class="fab fa-linkedin-in"></i></a></li>
-            <li class="animated-wrap"><a class="animated-element" href="javascript:void(0);"><i class="fab fa-instagram"></i></a></li>
-        </ul>
-    </div>
 </div>
 <!-- End Copyright -->
 
